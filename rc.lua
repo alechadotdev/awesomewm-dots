@@ -156,6 +156,7 @@ local tasklist_buttons = gears.table.join(
                                               awful.client.focus.byidx(-1)
                                           end))
 
+-- Nitrogen will override this wallpaper 
 local function set_wallpaper(s)
     -- Wallpaper
     if beautiful.wallpaper then

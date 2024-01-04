@@ -2,7 +2,7 @@
 
 ## Installation
 ```bash
-sudo apt install awesome feh dmenu wmctrl rofi pnmixer pavucontrol arandr autorandr lxappearance
+sudo apt install awesome wmctrl rofi pnmixer pavucontrol arandr autorandr lxappearance nitrogen
 ```
 
 ### Chrome session

@@ -11,3 +11,4 @@ run /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 run nm-applet
 run pnmixer
 run picom -b
+run nitrogen --restore
