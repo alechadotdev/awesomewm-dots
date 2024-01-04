@@ -264,8 +264,6 @@ globalkeys = gears.table.join(
         end,
         { description = "focus previous by index", group = "client" }
     ),
-    awful.key({ modkey, }, "w", function() mymainmenu:show() end,
-        { description = "show main menu", group = "awesome" }),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift" }, "j", function() awful.client.swap.byidx(1) end,
@@ -327,21 +325,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey }, "r", function() awful.screen.focused().mypromptbox:run() end,
         { description = "run prompt", group = "launcher" }),
     awful.key({ modkey }, "d", function() awful.spawn("rofi -show drun") end,
-        { description = "Show rofi", group = "launcher" }),
-
-    awful.key({ modkey }, "x",
-        function()
-            awful.prompt.run {
-                prompt       = "Run Lua code: ",
-                textbox      = awful.screen.focused().mypromptbox.widget,
-                exe_callback = awful.util.eval,
-                history_path = awful.util.get_cache_dir() .. "/history_eval"
-            }
-        end,
-        { description = "lua execute prompt", group = "awesome" }),
-    -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
-        { description = "show the menubar", group = "launcher" })
+        { description = "Show rofi", group = "launcher" })
 )
 
 clientkeys = gears.table.join(
@@ -351,9 +335,9 @@ clientkeys = gears.table.join(
             c:raise()
         end,
         { description = "toggle fullscreen", group = "client" }),
-    awful.key({ modkey, "Shift" }, "c", function(c) c:kill() end,
+    awful.key({ modkey, }, "w", function(c) c:kill() end,
         { description = "close", group = "client" }),
-    awful.key({ modkey, "Control" }, "space", awful.client.floating.toggle,
+    awful.key({ modkey }, "g", awful.client.floating.toggle,
         { description = "toggle floating", group = "client" }),
     awful.key({ modkey, "Control" }, "Return", function(c) c:swap(awful.client.getmaster()) end,
         { description = "move to master", group = "client" }),
@@ -478,7 +462,7 @@ awful.rules.rules = {
     {
         rule_any = {
             instance = {
-                "DTA", -- Firefox addon DownThemAll.
+                "DTA",   -- Firefox addon DownThemAll.
                 "copyq", -- Includes session name in class.
                 "pinentry",
             },
@@ -487,7 +471,7 @@ awful.rules.rules = {
                 "Blueman-manager",
                 "Gpick",
                 "Kruler",
-                "MessageWin", -- kalarm.
+                "MessageWin",  -- kalarm.
                 "Sxiv",
                 "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
                 "Wpa_gui",
@@ -500,9 +484,9 @@ awful.rules.rules = {
                 "Event Tester", -- xev.
             },
             role = {
-                "AlarmWindow", -- Thunderbird's calendar.
+                "AlarmWindow",   -- Thunderbird's calendar.
                 "ConfigManager", -- Thunderbird's about:config.
-                "pop-up",  -- e.g. Google Chrome's (detached) Developer Tools.
+                "pop-up",        -- e.g. Google Chrome's (detached) Developer Tools.
             }
         },
         properties = { floating = true }
