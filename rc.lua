@@ -21,7 +21,6 @@ require("awful.hotkeys_popup.keys")
 -- Load Debian menu entries
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
-local dpi = require("beautiful").xresources.apply_dpi
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -525,53 +524,7 @@ client.connect_signal("manage", function(c)
 	end
 end)
 
--- Add a titlebar if titlebars_enabled is set to true in the rules.
-client.connect_signal("request::titlebars", function(c)
-	-- buttons for the titlebar
-	local buttons = gears.table.join(
-		awful.button({}, 1, function()
-			c:emit_signal("request::activate", "titlebar", { raise = true })
-			awful.mouse.client.move(c)
-		end),
-		awful.button({}, 3, function()
-			c:emit_signal("request::activate", "titlebar", { raise = true })
-			awful.mouse.client.resize(c)
-		end)
-	)
-
-	awful.titlebar(c):setup({
-		{ -- Left
-			{
-				wibox.layout.margin(awful.titlebar.widget.iconwidget(c), dpi(2), dpi(5), dpi(5), dpi(5)),
-				layout = wibox.layout.fixed.horizontal(),
-			},
-			buttons = buttons,
-			layout = wibox.layout.fixed.horizontal,
-		},
-		{ -- Middle
-			{ -- Title
-				align = "left",
-				widget = awful.titlebar.widget.titlewidget(c),
-			},
-			buttons = buttons,
-			layout = wibox.layout.flex.horizontal,
-		},
-		{ -- Right
-			wibox.layout.margin(awful.titlebar.widget.floatingbutton(c), dpi(2), dpi(5), dpi(5), dpi(5)),
-			wibox.layout.margin(awful.titlebar.widget.maximizedbutton(c), dpi(2), dpi(5), dpi(5), dpi(5)),
-			wibox.layout.margin(awful.titlebar.widget.minimizebutton(c), dpi(2), dpi(5), dpi(5), dpi(5)),
-			wibox.layout.margin(awful.titlebar.widget.closebutton(c), dpi(2), dpi(5), dpi(5), dpi(5)),
-			layout = wibox.layout.fixed.horizontal(),
-		},
-		layout = wibox.layout.align.horizontal,
-	})
-end)
-
--- [[ Enable sloppy focus, so that focus follows mouse.
--- client.connect_signal("mouse::enter", function(c)
---    c:emit_signal("request::activate", "mouse_enter", {raise = false})
--- end)
--- ]]
+require("titlebar")
 
 client.connect_signal("focus", function(c)
 	c.border_color = beautiful.border_focus
