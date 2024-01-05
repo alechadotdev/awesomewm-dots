@@ -21,6 +21,7 @@ require("awful.hotkeys_popup.keys")
 -- Load Debian menu entries
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
+local dpi = require("beautiful").xresources.apply_dpi
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -272,7 +273,6 @@ globalkeys = gears.table.join(
 	awful.key({ modkey }, "Left", awful.tag.viewprev, { description = "view previous", group = "tag" }),
 	awful.key({ modkey }, "Right", awful.tag.viewnext, { description = "view next", group = "tag" }),
 	awful.key({ modkey }, "Escape", awful.tag.history.restore, { description = "go back", group = "tag" }),
-
 	awful.key({ modkey }, "j", function()
 		awful.client.focus.byidx(1)
 	end, { description = "focus next by index", group = "client" }),
@@ -554,9 +554,10 @@ client.connect_signal("request::titlebars", function(c)
 			layout = wibox.layout.flex.horizontal,
 		},
 		{ -- Right
-			awful.titlebar.widget.floatingbutton(c),
-			awful.titlebar.widget.maximizedbutton(c),
-			awful.titlebar.widget.closebutton(c),
+			wibox.layout.margin(awful.titlebar.widget.floatingbutton(c), dpi(2), dpi(5), dpi(5), dpi(5)),
+			wibox.layout.margin(awful.titlebar.widget.maximizedbutton(c), dpi(2), dpi(5), dpi(5), dpi(5)),
+			wibox.layout.margin(awful.titlebar.widget.minimizebutton(c), dpi(2), dpi(5), dpi(5), dpi(5)),
+			wibox.layout.margin(awful.titlebar.widget.closebutton(c), dpi(2), dpi(5), dpi(5), dpi(5)),
 			layout = wibox.layout.fixed.horizontal(),
 		},
 		layout = wibox.layout.align.horizontal,
